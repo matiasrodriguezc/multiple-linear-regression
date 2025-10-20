@@ -1,80 +1,99 @@
-# Multiple Linear Regression with a Dummy Variable
+# Multiple Linear Regression Examples in Python
 
-This project demonstrates how to build and interpret a multiple linear regression model that includes a **dummy variable**. The script uses Python with the `statsmodels`, `pandas`, and `matplotlib` libraries to analyze the relationship between a student's GPA, their SAT score, and their class attendance.
-
------
-
-## 🎯 Project Goal
-
-The primary goal is to determine if class attendance (a categorical variable) has a statistically significant effect on a student's GPA, even after accounting for their SAT score (a continuous variable). This is achieved by converting the 'Attendance' category into a numerical dummy variable.
+This repository contains several examples of multiple linear regression implemented in Python, showcasing two powerful libraries: **Statsmodels** and **Scikit-learn**. The scripts cover models with both continuous and categorical (dummy) variables.
 
 -----
 
-## 📊 Dataset
+## 📂 Scripts Overview
 
-The script uses the `1.03. Dummies.csv` dataset, which contains the following columns:
+This project demonstrates both a statistical and a machine learning approach to multiple regression.
 
-  * **`SAT`**: The student's score on the SAT (Independent Variable, continuous).
-  * **`GPA`**: The student's Grade Point Average (Dependent Variable, continuous).
-  * **`Attendance`**: Whether the student attended more than 75% of classes (`Yes`/`No`) (Independent Variable, categorical).
+### 1\. Statsmodels Implementation (Statistical Inference)
+
+This script is perfect for detailed statistical interpretation, providing comprehensive summaries for model analysis.
+
+  * **`dummy_variable_regression_statsmodels.py`**: Analyzes the effect of SAT scores and class attendance (a dummy variable) on a student's GPA.
+      * **Dataset**: `1.03. Dummies.csv`
+      * **Independent Variables (X)**: `SAT`, `Attendance`
+      * **Dependent Variable (Y)**: `GPA`
+
+### 2\. Scikit-learn Implementations (Machine Learning & Prediction)
+
+These scripts use `scikit-learn` to build predictive models, focusing on feature selection, model fitting, and making predictions.
+
+  * **`gpa_prediction_sklearn.py`**: A model to predict GPA using SAT scores and a random variable to demonstrate feature selection.
+
+      * **Dataset**: `1.02. Multiple linear regression.csv`
+      * **Independent Variables (X)**: `SAT`, `Rand 1,2,3`
+      * **Dependent Variable (Y)**: `GPA`
+
+  * **`real_estate_prediction_sklearn.py`**: Predicts real estate prices based on property size and the year of construction.
+
+      * **Dataset**: `real_estate_price_size_year.csv`
+      * **Independent Variables (X)**: `size`, `year`
+      * **Dependent Variable (Y)**: `price`
 
 -----
 
 ## 🛠️ Key Concepts Demonstrated
 
-  * **Data Preprocessing**: Converting categorical data ('Yes'/'No') into a binary format (1/0) using the `.map()` function in pandas.
-  * **Dummy Variables**: Understanding how to incorporate non-numerical data into a regression model.
-  * **Multiple Linear Regression**: Fitting a model with more than one independent variable using `statsmodels.api.OLS`.
-  * **Model Interpretation**: Analyzing the `statsmodels` summary to understand the coefficients, p-values, and overall model fit.
-  * **Data Visualization**: Plotting the regression results to show how the dummy variable creates separate regression lines for each category.
-  * **Prediction**: Using the fitted model to make predictions on new, unseen data.
+  * **Data Preprocessing**: Converting categorical data (`Yes`/`No`) into numerical dummy variables (1/0).
+  * **Multiple Regression**: Fitting models with multiple independent variables using both `statsmodels.api.OLS` and `sklearn.linear_model.LinearRegression`.
+  * **Model Interpretation**: Analyzing the detailed statistical output from `statsmodels`.
+  * **Feature Selection**: Using `sklearn.feature_selection.f_regression` to calculate F-statistics and p-values to evaluate feature importance.
+  * **Model Evaluation**: Calculating R-squared and creating a function for Adjusted R-squared to assess model performance.
+  * **Prediction**: Using a trained `scikit-learn` model to make predictions on new data.
 
 -----
 
 ## ⚙️ Requirements
 
-To run this script, you will need Python 3 and the following libraries:
+To run these scripts, you will need Python 3 and the following libraries:
 
   * `numpy`
   * `pandas`
   * `statsmodels`
   * `matplotlib`
   * `seaborn`
+  * `scikit-learn`
 
 -----
 
 ## 🚀 Installation
 
 1.  Make sure you have Python 3 installed.
-2.  Install the required libraries by running the following command in your terminal:
+2.  Install all the required libraries by running this command in your terminal:
     ```bash
-    python3 -m pip install numpy pandas statsmodels matplotlib seaborn
+    python3 -m pip install numpy pandas statsmodels matplotlib seaborn scikit-learn
     ```
 
 -----
 
-## ▶️ How to Run the Script
+## ▶️ How to Run the Scripts
 
-1.  Save the code as a Python file (e.g., `dummy_variable_regression.py`).
-2.  Place the `1.03. Dummies.csv` file in the same directory.
-3.  Execute the script from your terminal:
-    ```bash
-    python3 dummy_variable_regression.py
-    ```
+Navigate to the project directory in your terminal and execute the desired script.
+
+**For the Statsmodels example:**
+
+```bash
+python3 dummy_variable_regression_statsmodels.py
+```
+
+**For the Scikit-learn examples:**
+
+```bash
+# GPA prediction model
+python3 gpa_prediction_sklearn.py
+
+# Real estate price prediction model
+python3 real_estate_prediction_sklearn.py
+```
 
 -----
 
 ## 📈 Analysis of Results
 
-The script will first print a summary of the regression model to the console. The key takeaway from the model is the equation:
+Each script provides a different kind of output:
 
-$$GPA = b_0 + b_1 \cdot SAT + b_2 \cdot Attendance$$
-
-The script then generates visualizations that plot two parallel regression lines:
-
-  * **Did Not Attend (`Attendance = 0`)**: $GPA = b_0 + b_1 \cdot SAT$
-  * **Attended (`Attendance = 1`)**: $GPA = (b_0 + b_2) + b_1 \cdot SAT$
-
-The vertical distance between these two lines visually represents the coefficient $b_2$, which is the "bonus" or "penalty" to GPA associated with attendance, holding the SAT score constant. The final plots color the data points by attendance to make this relationship clear.
-
-Finally, the script demonstrates how to use the `results.predict()` method to predict the GPA for new students with given SAT scores and attendance records.
+  * The **`statsmodels` script** prints a detailed summary table, ideal for understanding the significance and confidence intervals of each coefficient. It also visualizes how a dummy variable creates separate regression lines for each category.
+  * The **`scikit-learn` scripts** focus on practical application. They print the model's coefficients and demonstrate how to build a summary table with p-values to help decide which features to keep in a predictive model. They also show how to use the final model to make predictions.
